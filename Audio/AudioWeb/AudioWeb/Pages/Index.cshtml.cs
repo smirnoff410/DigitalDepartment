@@ -9,6 +9,7 @@ namespace AudioWeb.Pages
     {
         private readonly ITrackRepository _repository;
         private readonly ILogger<IndexModel> _logger;
+        //Изменить путь на свое локальное хранилище изображений
         private readonly string _storagePath = "D:\\Projects\\DigitalDepartment\\Audio\\storage";
         public List<TrackEntity> TrackNames { get; set; }
 

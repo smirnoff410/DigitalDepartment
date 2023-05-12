@@ -8,6 +8,7 @@ namespace AudioWeb.Pages
     public class UploadFileModel : PageModel
     {
         private readonly ITrackRepository _repository;
+        //Изменить путь на свое локальное хранилище изображений
         private readonly string _storagePath = "D:\\Projects\\DigitalDepartment\\Audio\\storage";
 
         public UploadFileModel(ITrackRepository repository)

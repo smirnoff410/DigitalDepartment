@@ -9,6 +9,7 @@ namespace DefectWeb.Pages
     {
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment hostinEnvironment;
         private readonly ILogger<IndexModel> _logger;
+        //Изменить путь на свое локальное хранилище изображений
         private readonly string _storagePath = "D:\\Projects\\DigitalDepartment\\Defect\\storage";
 
         public IndexModel(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostinEnvironment, ILogger<IndexModel> logger)
@@ -19,7 +20,7 @@ namespace DefectWeb.Pages
 
         public void OnGet()
         {
-
+            var current = Directory.GetCurrentDirectory();
         }
 
         // Obstruction color 
@@ -45,7 +46,10 @@ namespace DefectWeb.Pages
                 var result = response.Content.ReadAsStringAsync().Result;
                 var deserializeResult = JsonSerializer.Deserialize<Response>(result);
 
-                DrawingImage(deserializeResult);
+                var imageBytes = DrawingImage(deserializeResult);
+
+                HttpContext.Response.ContentType = "image/png";
+                HttpContext.Response.BodyWriter.WriteAsync(imageBytes);
             }
         }
 
@@ -62,23 +66,24 @@ namespace DefectWeb.Pages
             var points = new List<List<Point>>();
             foreach (var res in response.Result)
             {
-                points.Add(new List<Point> { new Point(Convert.ToInt32(res[0].X), Convert.ToInt32(res[0].Y)), new Point(Convert.ToInt32(res[0].X), Convert.ToInt32(res[1].Y)) });
-                points.Add(new List<Point> { new Point(Convert.ToInt32(res[0].X), Convert.ToInt32(res[1].Y)), new Point(Convert.ToInt32(res[1].X), Convert.ToInt32(res[1].Y)) });
-                points.Add(new List<Point> { new Point(Convert.ToInt32(res[1].X), Convert.ToInt32(res[1].Y)), new Point(Convert.ToInt32(res[1].X), Convert.ToInt32(res[0].Y)) });
-                points.Add(new List<Point> { new Point(Convert.ToInt32(res[1].X), Convert.ToInt32(res[0].Y)), new Point(Convert.ToInt32(res[0].X), Convert.ToInt32(res[0].Y)) });
+                var x1 = Convert.ToInt32(res[0].X);
+                var x2 = Convert.ToInt32(res[1].X);
+                var y1 = Convert.ToInt32(res[0].Y);
+                var y2 = Convert.ToInt32(res[1].Y);
+                points.Add(new List<Point> { new Point(x1, y1), new Point(x1, y2) });
+                points.Add(new List<Point> { new Point(x1, y2), new Point(x2, y2) });
+                points.Add(new List<Point> { new Point(x2, y2), new Point(x2, y1) });
+                points.Add(new List<Point> { new Point(x2, y1), new Point(x1, y1) });
             }
             // Add obstructions
             using (Pen pen = new Pen(new SolidBrush(obsColor), 5))
             {
                 for (int i = 0; i < points.Count; i++)
                 {
-                    graphics.DrawLine(pen,
-                        points[i][0],
-                        points[i][1]);
+                    graphics.DrawLine(pen, points[i][0], points[i][1]);
                 }
             }
             // Save image, image format type is consistent with response content type.
-            bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png); 
             var imageFolder = hostinEnvironment.WebRootPath + "\\Images";
             if (!Directory.Exists(imageFolder))
             {
@@ -86,6 +91,7 @@ namespace DefectWeb.Pages
             }
 
             bitmap.Save(imageFolder + "\\1.png", System.Drawing.Imaging.ImageFormat.Png);
+            bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
             return ms.ToArray();
         }
