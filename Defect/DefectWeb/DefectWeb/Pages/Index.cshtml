@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Загрузка изображения";
+}
+
+<div class="text-center">
+    <p>Загрузите новое изображение</p>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="Upload" />
+        <input type="submit" />
+    </form>
+    <p><img src="~/Images/1.png" /></p>
+</div>

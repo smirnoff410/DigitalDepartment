@@ -1,0 +1,12 @@
+﻿@page
+@model AudioWeb.Pages.UploadFileModel
+@{
+    ViewData["Title"] = "Загрузка нового трека";
+}
+<div class="text-center">
+    <p>Загрузите новый трек</p>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="Upload" />
+        <input type="submit" />
+    </form>
+</div>

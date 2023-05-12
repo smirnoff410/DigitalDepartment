@@ -1,0 +1,18 @@
+﻿@page "{id}"
+@model AudioWeb.Pages.AnalizeModel
+@{
+    ViewData["Title"] = "Анализ трека";
+}
+
+<div class="text-center">
+    <p>Найденный трек: @Model.TrackName</p>
+    <table style="margin-left: auto;margin-right: auto;">
+        <tr><th>Похожие треки</th></tr>
+        @foreach (var track in Model.SimilarTracks)
+        {
+            <tr>
+                <td>@track</td>
+            </tr>
+        }
+    </table>
+</div>
