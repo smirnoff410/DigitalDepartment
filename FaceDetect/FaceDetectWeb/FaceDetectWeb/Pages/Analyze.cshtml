@@ -1,0 +1,20 @@
+﻿@page "{fileName}"
+@model FaceDetectWeb.Pages.AnalyzeModel
+@{
+    ViewData["Title"] = "Анализ эмоций";
+}
+
+<div class="text-center">
+    <p>Обнаруденные эмоции:</p>
+    <table style="margin-left: auto;margin-right: auto;">
+        <tr><th>Название эмоции</th></tr>
+        @foreach (var emotion in Model.DetectEmotions)
+        {
+                <tr>
+                    <td>@emotion</td>
+                </tr>
+        }
+    </table>
+    <img src="@Model.SourceImage" />
+</div>
+

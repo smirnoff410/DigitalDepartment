@@ -10,6 +10,8 @@ existTrackData = [ [99.38401442307692, "Miagy and Andy Panda"], [112.34714673913
 
 app = FastAPI()
 
+#Изменить путь на свое локальное хранилище изображений
+storage_path = "D:\Projects\DigitalDepartment\Audio\storage"
 
 @app.get("/{track_id}")
 def read_root(track_id: int):
@@ -23,7 +25,7 @@ def read_root(track_id: int):
 
     # 2. Load the audio as a waveform `y`
     #    Store the sampling rate as `sr`
-    y, sr = librosa.load("D:\Projects\DigitalDepartment\Audio\storage\\" + filename)
+    y, sr = librosa.load(storage_path + "\\" + filename)
 
     # 3. Run the default beat tracker
     tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)

@@ -6,19 +6,21 @@ import os
 
 app = FastAPI()
 
+#Изменить путь на свое локальное хранилище изображений
+storage_path = "D:\Projects\DigitalDepartment\Defect\storage"
+file_storage_path = "D:\Projects\DigitalDepartment\Defect\storage\defectData"
+
 
 @app.get("/{file_name}")
 def read_root(file_name: str):
-    img_rgb = cv.imread(file_name)
+    img_rgb = cv.imread(storage_path + "\\" + file_name)
     assert img_rgb is not None, "file could not be read, check with os.path.exists()"
 
     img_gray = cv.cvtColor(img_rgb, cv.COLOR_BGR2GRAY)
 
-    file_storage_path = "D:\Projects\DigitalDepartment\Defect\storage\defectData"
     result = []
     files = os.listdir(file_storage_path)
     for file in files:
-        print(file)
         template = cv.imread(file_storage_path + '\\' + file, cv.IMREAD_GRAYSCALE)
         assert template is not None, "file could not be read, check with os.path.exists()"
 
@@ -34,4 +36,5 @@ def read_root(file_name: str):
             print((pt[0] + w, pt[1] + h))
     #cv.rectangle(img_rgb, (302, 285), (336, 321), (0,0,255), 2)
     cv.imwrite('res.png',img_rgb)
+    print({ "Result": result })
     return { "Result": result }

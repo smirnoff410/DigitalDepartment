@@ -10,3 +10,11 @@ Defect/DefectWeb/.vs
 Defect/DefectWeb/DefectWeb/obj
 Defect/DefectWeb/DefectWeb/bin
 Defect/Example
+FaceDetect/FaceDetectWeb/.vs
+FaceDetect/FaceDetectWeb/FaceDetectWeb/obj
+FaceDetect/FaceDetectWeb/FaceDetectWeb/bin
+ObjectDetect/ObjectDetect/__pycache__
+ObjectDetect/ObjectDetectWeb/.vs
+ObjectDetect/ObjectDetectWeb/ObjectDetectWeb/obj
+ObjectDetect/ObjectDetectWeb/ObjectDetectWeb/bin
+ObjectDetect/ObjectDetect/yolov3.weights
