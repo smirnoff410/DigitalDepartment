@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:drawables="clr-namespace:ObjectDetectMobile.Drawables"
+             x:Class="ObjectDetectMobile.MainPage">
+
+    <ContentPage.Resources>
+        <drawables:ClockDrawable x:Key="clockDrawable"/>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <!--
+        <AbsoluteLayout>
+            <Image Source="people.jpg"
+                   
+                WidthRequest="400"  />
+
+            <GraphicsView Drawable="{StaticResource clockDrawable}"
+                  x:Name="ClockGraphicsView">
+            </GraphicsView>
+
+        </AbsoluteLayout>
+        -->
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                x:Name="UploadedImage"
+                HeightRequest="400"
+                WidthRequest="400"
+                HorizontalOptions="Center"  />
+
+            <Button
+                Text="Загрузить изображение"
+                Clicked="UploadImage_Clicked"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Обнаруженные объекты:"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="DetectedObjects"
+                FontSize="12"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

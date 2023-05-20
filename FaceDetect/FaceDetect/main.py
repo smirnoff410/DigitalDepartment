@@ -1,7 +1,7 @@
 import time
 from pathlib import Path
 import numpy as np
-
+import cv2 as cv
 import torch
 
 from emotion import detect_emotion, init
@@ -89,6 +89,10 @@ def read_root(file_name: str):
                     i += 1
                     plot_one_box(xyxy, im0, label=label, color=colour, line_thickness=2)
                     result.append({"Emotion": label, "Coordinate" : [{"X": int(xyxy[0]), 'Y': int(xyxy[1])}, {'X': int(xyxy[2]), 'Y': int(xyxy[3])}]})
+            
+            #cv.imshow("IMG", im0)
+            #cv.waitKey(0)
+            #cv.destroyAllWindows()
     
     return {"Result": result}
 
